@@ -1,0 +1,13 @@
+name: MIEBL
+title: MIEBL
+username: reetamm
+account: reetamm
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 17227975
+bundleId: 11946917
+url: https://reetamm.shinyapps.io/MIEBL/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: app2.R
