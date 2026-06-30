@@ -40,14 +40,12 @@ ui <- fluidPage(
                   max = 99,
                   value = 95,
                   step = 05),
-      selectInput("prior", "Distribution of prior belief", priors),
-      
       numericInput("k", "Number of future sessions", 5, min = 1),
       numericInput("J", "Window size", 3, min = 1),
-      selectInput("type", "Forecast type", c("window","floor","decay"), "decay")
-      
+      selectInput("type", "Forecast type", c("window","floor","decay"), "decay"),
+      selectInput("prior", "Distribution of prior belief", priors)
     ),
-    
+
     # Show a plot of the generated distribution
     mainPanel(
       plotOutput("sessionPlot"),   # New plot
@@ -77,29 +75,29 @@ ui <- fluidPage(
 
 # Define server logic required to draw a histogram
 server <- function(input, output) {
-  
-  
+
+
   output$sessionPlot <- renderPlot({
-    
+
     y <- as.numeric(unlist(strsplit(input$y, ",")))
     n <- as.numeric(unlist(strsplit(input$n, ",")))
-    
+
     tau <- input$tau
     T <- length(y)
-    
+
     tau <- n * tau / 100
     if(length(tau) == 1){
       tau <- rep(tau, T)
     }
-    
+
     if(length(n) == 1)
       n <- rep(n, T)
-    
+
     if(input$lr == "No"){
       y[y < tau] <- 0
       n[y < tau] <- 0
     }
-    
+
     plot_sessions(
       y = y,
       n = n,
@@ -111,7 +109,7 @@ server <- function(input, output) {
       type = input$type
     )
   })
-  
+
   output$distPlot <- renderPlot({
     y <- as.numeric(unlist(strsplit(input$y,",")))
     n <- as.numeric(unlist(strsplit(input$n,",")))
@@ -132,9 +130,9 @@ server <- function(input, output) {
     n <- sum(n)
     out <- plot_posterior1(prior = input$prior,y=y,n=n,t=t,T=T,
                            qtest = input$qtest,alpha = input$alpha/100)
-    
+
   })
-  
+
   output$theta_interval <- renderText({
     y <- as.numeric(unlist(strsplit(input$y,",")))
     n <- as.numeric(unlist(strsplit(input$n,",")))
@@ -157,7 +155,7 @@ server <- function(input, output) {
                            qtest = input$qtest,alpha = input$alpha/100)
     paste('With', input$alpha, 'percent probability, the posterior mastery level is at least',floor(out[1]*100),'percent')
   })
-  
+
   output$b <- renderText({
     y <- as.numeric(unlist(strsplit(input$y,",")))
     n <- as.numeric(unlist(strsplit(input$n,",")))

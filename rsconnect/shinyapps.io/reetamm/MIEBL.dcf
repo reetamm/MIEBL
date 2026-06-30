@@ -5,7 +5,7 @@ account: reetamm
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 17227975
-bundleId: 11946917
+bundleId: 12202180
 url: https://reetamm.shinyapps.io/MIEBL/
 version: 1
 asMultiple: FALSE
