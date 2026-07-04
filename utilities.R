@@ -136,13 +136,14 @@ plot_sessions <- function(y, n, qtest, alpha, prior, k, J, type){
 
     # Lower-bound forecast (existing)
     if(type == "floor"){
-      y_next <- floor(L * n_next)
+      y_next <- L * n_next
     } else {
       y_next <- L * n_next
     }
 
     # Mean-based forecast (rounded)
-    y_mean_next <- round(mean_post * n_next)
+    # y_mean_next <- round(mean_post * n_next)
+    y_mean_next <- mean_post * n_next
 
     # Append forecasts
     y_fore <- c(y_fore, y_next)
@@ -223,6 +224,11 @@ plot_sessions <- function(y, n, qtest, alpha, prior, k, J, type){
           linetype = "Predicted Lower Bound"),
       size = 1
     )} +
+
+    {if(k > 0) geom_point(
+      aes(x = c(n_obs, sessions_fore),
+          y = c(perf_fore[1], perf_fore)),
+      size = 2)} +
 
     # Mean forecast (green dashed)
     {if(k > 0) geom_line(
