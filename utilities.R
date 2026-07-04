@@ -217,8 +217,8 @@ plot_sessions <- function(y, n, qtest, alpha, prior, k, J, type){
 
     # Lower bound forecast (blue dashed)
     {if(k > 0) geom_line(
-      aes(x = c(n_obs, sessions_fore[-1]),
-          y = c(perf_fore[1], perf_fore[-1]),
+      aes(x = c(n_obs, sessions_fore),
+          y = c(perf_fore[1], perf_fore),
           color = "Predicted Lower Bound",
           linetype = "Predicted Lower Bound"),
       size = 1
@@ -226,8 +226,8 @@ plot_sessions <- function(y, n, qtest, alpha, prior, k, J, type){
 
     # Mean forecast (green dashed)
     {if(k > 0) geom_line(
-      aes(x = c(n_obs, sessions_fore[-1]),
-          y = c(perf_mean_fore[1], perf_mean_fore[-1]),
+      aes(x = c(n_obs, sessions_fore),
+          y = c(perf_mean_fore[1], perf_mean_fore),
           color = "Predicted Mean Performance",
           linetype = "Predicted Mean Performance"),
       size = 1
